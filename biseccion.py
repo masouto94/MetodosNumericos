@@ -144,9 +144,4 @@ def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int =
 a = 1
 b = 12
 
-
-def f3(x):
-    return x**2 + x - 12
-
-
 print(triseccion(a, b, f3, error=1 / 10))
