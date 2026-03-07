@@ -5,8 +5,8 @@ from math import cos, pi
 import logging
 
 logger = logging.getLogger()
-# logging.basicConfig(level="DEBUG", format="%(levelname)s -%(funcName)s - %(message)s")
-logging.basicConfig(level="INFO", format="%(levelname)s -%(funcName)s - %(message)s")
+# Cambiar INFO por DEBUG para que muestre todos los pasos intermedios
+logging.basicConfig(level="INFO", format="%(levelname)s - %(funcName)s - %(message)s")
 
 
 def signo(x):
@@ -34,7 +34,9 @@ d) que devuelva, además del p encontrado, la cantidad de pasos que fueron neces
 def biseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int = inf):
     c = (a + b) / 2
     if signo(func(a)) * signo(func(b)) >= 0:
-        logger.warning("El intervalo no contiene una raíz")
+        logger.warning(
+            f"El intervalo [{a},{b}] no contiene una raíz porque no hay cambio de signo"
+        )
         return None
     step = 0
     while (b - a) > error and step < max_steps:
@@ -106,7 +108,7 @@ a = 0
 b = 5
 print(biseccion(a, b, f4, error=1 / 10))
 # No se puede calcular con este algoritmo porque la expresion cos(x) + 1 nunca es negativa. No cumple el cambio de signo
-
+# porque esa función tiene conjunto imagen [0,2]
 
 """9. Método de trisección. Implementar en Python un método para aproximar raíces al estilo de bisección, 
 pero que en vez de dividir el intervalo en 2 subintervalos lo divida en 3, y en cada iteración elija uno 
@@ -117,7 +119,9 @@ def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int =
     c1 = a + (b - a) / 3
     c2 = b - (b - a) / 3
     if signo(func(a)) == signo(func(b)) == signo(func(c1)) == signo(func(c2)):
-        logger.warning("El intervalo no contiene una raíz")
+        logger.warning(
+            f"El intervalo [{a},{b}] no contiene una raíz porque no hay cambio de signo"
+        )
         return None
     step = 0
     while (b - a) > error and step < max_steps:
@@ -135,3 +139,14 @@ def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int =
             a = c2
         step += 1
     return (c1 + c2) / 2
+
+
+a = 1
+b = 12
+
+
+def f3(x):
+    return x**2 + x - 12
+
+
+print(triseccion(a, b, f3, error=1 / 10))
