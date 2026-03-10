@@ -8,11 +8,12 @@ from math import *
 def f(x):
     return cos(x)
 
-def mi_funcion_recursiva(x0, n):
+def mi_funcion_recursiva(x, n):
     if n == 0:
-        return
-    x1 = f(x0)
-    print(x1)
-    mi_funcion_recursiva(x1, n-1)
+        return x
+    x = f(x)
+    print(x)
+    mi_funcion_recursiva(x, n-1)
 
 mi_funcion_recursiva(1, 10)
+
