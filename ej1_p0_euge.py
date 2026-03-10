@@ -5,12 +5,14 @@
 
 from math import *
 
-def mi_funcion(x0, n):
+def f(x):
+    return cos(x)
+
+def mi_funcion_recursiva(x0, n):
     if n == 0:
         return
-    x1 = cos(x0)
+    x1 = f(x0)
     print(x1)
-    mi_funcion(x1, n-1)
+    mi_funcion_recursiva(x1, n-1)
 
-
-mi_funcion(1, 50)
+mi_funcion_recursiva(1, 10)
