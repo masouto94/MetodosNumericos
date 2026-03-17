@@ -53,68 +53,6 @@ def biseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int = 
     return c
 
 
-"""4. Aplicar el método de bisección para hallar una raíz aproximada de la función f(x) = x^3 + x - 5, 
-comenzando con el intervalo [1,2], y el error epsilon = 0.5.
-"""
-a = 1
-b = 2
-
-
-def f1(x):
-    return x**3 + x - 5
-
-
-print(biseccion(a, b, f1))
-
-"""5. Aplicar el método de bisección para hallar una raíz aproximada de la función f(x) = x^3 + x - 10 
-haciendo 4 pasos.
-"""
-
-
-def f2(x):
-    return x**3 + x - 10
-
-
-a = 1
-b = 10
-print(biseccion(a, b, f2, max_steps=4))
-# Exacto es 2
-
-"""6. Aplicar el método de bisección para hallar una aproximación de un x que cumpla x^2 + x = 12. 
-Calcular luego el valor exacto de otra manera, y comparar.
-"""
-
-a = 1
-b = 12
-
-
-def f3(x):
-    return x**2 + x - 12
-
-
-print(biseccion(a, b, f3, error=1 / 10))
-# Exacto es 3
-
-"""7. Aplicar el método de bisección para aproximar un x que cumpla cos(x) = -1, con error menor que epsilon = 1/10.
- Notar que esto sirve para encontrar aproximaciones de pi.
-"""
-
-
-def f4(x):
-    return cos(x) + 1
-
-
-a = 0
-b = 5
-print(biseccion(a, b, f4, error=1 / 10))
-# No se puede calcular con este algoritmo porque la expresion cos(x) + 1 nunca es negativa. No cumple el cambio de signo
-# porque esa función tiene conjunto imagen [0,2]
-
-"""9. Método de trisección. Implementar en Python un método para aproximar raíces al estilo de bisección, 
-pero que en vez de dividir el intervalo en 2 subintervalos lo divida en 3, y en cada iteración elija uno 
-de los 3 subintervalos que contenga una raíz. Usar una condición de parada análoga a la del método de bisección."""
-
-
 def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int = inf):
     c1 = a + (b - a) / 3
     c2 = b - (b - a) / 3
@@ -141,7 +79,61 @@ def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int =
     return (c1 + c2) / 2
 
 
-a = 1
-b = 12
+if __name__ == "__main__":
 
-print(triseccion(a, b, f3, error=1 / 10))
+    """4. Aplicar el método de bisección para hallar una raíz aproximada de la función f(x) = x^3 + x - 5,
+    comenzando con el intervalo [1,2], y el error epsilon = 0.5.
+    """
+    a = 1
+    b = 2
+
+    def f1(x):
+        return x**3 + x - 5
+
+    print(biseccion(a, b, f1))
+
+    """5. Aplicar el método de bisección para hallar una raíz aproximada de la función f(x) = x^3 + x - 10 
+    haciendo 4 pasos.
+    """
+
+    def f2(x):
+        return x**3 + x - 10
+
+    a = 1
+    b = 10
+    print(biseccion(a, b, f2, max_steps=4))
+    # Exacto es 2
+
+    """6. Aplicar el método de bisección para hallar una aproximación de un x que cumpla x^2 + x = 12. 
+    Calcular luego el valor exacto de otra manera, y comparar.
+    """
+
+    a = 1
+    b = 12
+
+    def f3(x):
+        return x**2 + x - 12
+
+    print(biseccion(a, b, f3, error=1 / 10))
+    # Exacto es 3
+
+    """7. Aplicar el método de bisección para aproximar un x que cumpla cos(x) = -1, con error menor que epsilon = 1/10.
+    Notar que esto sirve para encontrar aproximaciones de pi.
+    """
+
+    def f4(x):
+        return cos(x) + 1
+
+    a = 0
+    b = 5
+    print(biseccion(a, b, f4, error=1 / 10))
+    a = 1
+    b = 12
+
+    # No se puede calcular con este algoritmo porque la expresion cos(x) + 1 nunca es negativa. No cumple el cambio de signo
+    # porque esa función tiene conjunto imagen [0,2]
+
+    """9. Método de trisección. Implementar en Python un método para aproximar raíces al estilo de bisección, 
+    pero que en vez de dividir el intervalo en 2 subintervalos lo divida en 3, y en cada iteración elija uno 
+    de los 3 subintervalos que contenga una raíz. Usar una condición de parada análoga a la del método de bisección."""
+    print(triseccion(a, b, f3, error=1 / 10))

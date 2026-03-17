@@ -1,16 +1,10 @@
 import sympy
+from utils import div
 
 # El método de newton se basa en aproximar la raíz a partir de las rectas tangentes a ciertos puntos de f
 # La convergencia a una raíz no está garantizada pero si es C^2 y estamos en el entorno de  la raíz r
 # Se puede asegurar que existe un e > 0 para el que si tomamos cualquier x0 del intervalo (r-e, r+3)
 # Nos encontraremos con una sucesión que converge a r en xn
-
-
-# Fuerzo que al dividir por cero tire error
-def div(num, den):
-    if den.is_zero:
-        raise ZeroDivisionError("División por cero")
-    return num / den
 
 
 x = sympy.Symbol("x")
@@ -32,21 +26,22 @@ def metodo_newton(f, x0, error):
         return x0
 
 
-print(metodo_newton(func, 1, 0.001))
-print(metodo_newton(func, 0, 0.001))
+if __name__ == "__main__":
+    print(metodo_newton(func, 1, 0.001))
+    print(metodo_newton(func, 0, 0.001))
 
-# Solo funciona si estamos "cerca" pero parece que anda igual pero tarda
-# print(metodo_newton(func, 10000, 0.001))
+    # Solo funciona si estamos "cerca" pero parece que anda igual pero tarda
+    # print(metodo_newton(func, 10000, 0.001))
 
-# 4 - Indicar cómo se puede usar el método de Newton para calcular la función
-# f(x) = ln x para x > 0, usando otras operaciones: +. -, *, / y exponencial. Discutir una posible
-# implementación práctica de esto
+    # 4 - Indicar cómo se puede usar el método de Newton para calcular la función
+    # f(x) = ln x para x > 0, usando otras operaciones: +. -, *, / y exponencial. Discutir una posible
+    # implementación práctica de esto
 
-func = sympy.log(x)
+    func = sympy.log(x)
 
-# En este caso sí se nota que si no estamos cerca no termina nunca
-# Este esta cerca
-print(metodo_newton(func, 2, 0.0001))
+    # En este caso sí se nota que si no estamos cerca no termina nunca
+    # Este esta cerca
+    print(metodo_newton(func, 2, 0.0001))
 
-# Este no
-# print(metodo_newton(func,5, 0.0001))
+    # Este no
+    # print(metodo_newton(func,5, 0.0001))

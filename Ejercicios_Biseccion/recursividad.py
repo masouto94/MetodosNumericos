@@ -33,9 +33,11 @@ def composite_recursive_result(
     return result
 
 
-print(recursive_result(5, 100, cos))
-print(composite_recursive_result(5, 100, cos, sin))
+if __name__ == "__main__":
 
-print(recursive_result(5, 10000, cos))
-print(composite_recursive_result(5, 10000, cos, sin))
-# terminan convergiendo
+    print(recursive_result(5, 100, cos))
+    print(composite_recursive_result(5, 100, cos, sin))
+
+    print(recursive_result(5, 10000, cos))
+    print(composite_recursive_result(5, 10000, cos, sin))
+    # terminan convergiendo
