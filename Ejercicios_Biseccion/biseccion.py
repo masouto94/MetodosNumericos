@@ -3,6 +3,7 @@ from numbers import Number
 from typing import Callable
 from math import cos, pi
 import logging
+from utils import SYMBOLS
 
 logger = logging.getLogger()
 # Cambiar INFO por DEBUG para que muestre todos los pasos intermedios
@@ -53,10 +54,16 @@ def biseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int = 
     return c
 
 
-def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int = inf):
+def triseccion(a: Number, b: Number, expr, error=0.5, max_steps: int = inf):
+    func = expr()
     c1 = a + (b - a) / 3
     c2 = b - (b - a) / 3
-    if signo(func(a)) == signo(func(b)) == signo(func(c1)) == signo(func(c2)):
+    if (
+        signo(func.subs(SYMBOLS.get("x"), a))
+        == signo(func.subs(SYMBOLS.get("x"), b))
+        == signo(func.subs(SYMBOLS.get("x"), c1))
+        == signo(func.subs(SYMBOLS.get("x"), c2))
+    ):
         logger.warning(
             f"El intervalo [{a},{b}] no contiene una raíz porque no hay cambio de signo"
         )
@@ -65,13 +72,21 @@ def triseccion(a: Number, b: Number, func: Callable, error=0.5, max_steps: int =
     while (b - a) > error and step < max_steps:
         c1 = a + (b - a) / 3
         c2 = b - (b - a) / 3
-        if func(c1) == 0:
+        if func.subs(SYMBOLS.get("x"), c1) == 0:
             return c1
-        if func(c2) == 0:
+        if func.subs(SYMBOLS.get("x"), c2) == 0:
             return c2
-        if signo(func(a)) * signo(func(c1)) < 0:
+        if (
+            signo(func.subs(SYMBOLS.get("x"), a))
+            * signo(func.subs(SYMBOLS.get("x"), c1))
+            < 0
+        ):
             b = c1
-        elif signo(func(a)) * signo(func(c2)) < 0:
+        elif (
+            signo(func.subs(SYMBOLS.get("x"), a))
+            * signo(func.subs(SYMBOLS.get("x"), c2))
+            < 0
+        ):
             b = c2
         else:
             a = c2
@@ -136,4 +151,9 @@ if __name__ == "__main__":
     """9. Método de trisección. Implementar en Python un método para aproximar raíces al estilo de bisección, 
     pero que en vez de dividir el intervalo en 2 subintervalos lo divida en 3, y en cada iteración elija uno 
     de los 3 subintervalos que contenga una raíz. Usar una condición de parada análoga a la del método de bisección."""
-    print(triseccion(a, b, f3, error=1 / 10))
+
+    def sample_func():
+        x = SYMBOLS.get("x")
+        return x**2 + x - 12
+
+    print(triseccion(a, b, sample_func, error=1 / 10))
