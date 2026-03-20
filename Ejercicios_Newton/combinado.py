@@ -14,12 +14,17 @@ def combinado(a, b, func, error, max_steps):
     return metodo_newton(func, x0, error * 10e-6)
 
 
-# Falta cambiar la implementacion de las funcs en biseccion para que tomen la func definida con sympy
 if __name__ == "__main__":
 
     a = -1000
     b = -5
-    print(combinado(a, b, funcion_grande, 0.01, log(abs(a - b), 2)))
+    print(
+        f"Raiz aproximada para intervalo [{a},{b}]",
+        combinado(a, b, funcion_grande, 0.01, log(abs(a - b), 2)),
+    )
     a = -5
     b = 1000
-    print(combinado(a, b, funcion_grande, 0.01, log(abs(a - b), 2)))
+    print(
+        f"Raiz aproximada para intervalo [{a},{b}]",
+        combinado(a, b, funcion_grande, 0.01, log(abs(a - b), 2)),
+    )
